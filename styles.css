@@ -21,3 +21,14 @@ dialog{width:min(92vw,420px);border:1px solid #ff9a4238;border-radius:23px;backg
 .v5-date{min-width:50px;padding:10px 6px;text-align:center;border-radius:12px;background:#3b2415;color:#ffc18e;font-size:11px;font-weight:800}.v5-empty{padding:25px 18px;text-align:center;border:1px dashed #ffffff2b;border-radius:18px;background:#ffffff05}.v5-empty h3{margin:8px 0 4px}.v5-empty p{font-size:11px;line-height:1.6;color:#aaa}
 .v5-nav-icon{font-size:19px;line-height:1.2}.bottom-nav .nav-item{gap:4px}.bottom-nav .nav-item>span:last-child{font-size:9px}.pulse-view{padding-bottom:28px;min-height:calc(100svh - 150px)}.pulse-view:not([hidden]){display:block}
 @media(max-width:360px){.v5-card{gap:7px;padding:10px}.v5-actions{gap:4px}.v5-pulses span{font-size:9px}}
+
+/* v6 interaction fixes */
+.v5-card{position:relative;padding-inline-end:42px}
+.v5-delete{position:absolute;inset-inline-end:9px;top:9px;width:28px;height:28px;border:1px solid #ffffff20;border-radius:50%;background:#ffffff0b;color:#cfc5bb;font-size:18px;line-height:1}
+.v5-delete:active{background:#6b241b;color:#fff}
+.v5-qr{border:1px solid #ff963d66;background:#2c1c11;color:#ffc18e;border-radius:10px;padding:7px 8px;font-size:10px}
+#v6-qr-dialog{max-width:340px;text-align:center}
+#v6-qr-code{display:grid;place-items:center;min-height:220px;padding:12px;background:#fff;border-radius:14px}
+#v6-qr-code img,#v6-qr-code canvas{max-width:100%;height:auto!important;margin:auto}
+.sound-setting{display:flex!important;align-items:center}
+.sound-setting input{width:auto;accent-color:var(--orange);margin-inline-start:10px}
