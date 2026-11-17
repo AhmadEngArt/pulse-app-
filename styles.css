@@ -122,3 +122,69 @@ dialog{width:min(92vw,420px);border:1px solid #ff9a4238;border-radius:23px;backg
 @media(prefers-reduced-motion:reduce){
  .bottom-nav .nav-item,.bottom-nav .nav-item::before,.bottom-nav .nav-item .v5-nav-icon{transition:none}
 }
+
+
+/* PULSE v8 — premium glass buttons + bespoke icon finish */
+.bottom-nav{
+  height:88px;
+  padding:9px 9px calc(10px + env(safe-area-inset-bottom));
+  gap:7px;
+  background:linear-gradient(180deg,rgba(35,32,29,.88),rgba(12,12,13,.96));
+  border-top:1px solid rgba(255,181,119,.2);
+  box-shadow:0 -16px 42px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.055);
+  -webkit-backdrop-filter:blur(22px) saturate(145%);
+  backdrop-filter:blur(22px) saturate(145%);
+}
+.bottom-nav .nav-item{
+  height:64px;
+  margin:0 1px;
+  border:1px solid rgba(255,255,255,.075);
+  border-top-color:rgba(255,255,255,.15);
+  border-radius:17px;
+  background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.018) 55%,rgba(0,0,0,.13));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09),inset 0 -5px 12px rgba(0,0,0,.15),0 5px 13px rgba(0,0,0,.2);
+  color:#93877d;
+  overflow:visible;
+}
+.bottom-nav .nav-item::before{display:none}
+.bottom-nav .nav-item .v5-nav-icon{
+  width:42px;height:34px;
+  font-size:initial;
+  color:inherit;
+}
+.bottom-nav .v5-nav-icon svg{
+  display:block;
+  width:23px;height:23px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.75;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  overflow:visible;
+}
+.bottom-nav .nav-item>span:last-child{
+  font-size:9px;
+  letter-spacing:.25px;
+  color:inherit;
+}
+.bottom-nav .nav-item.active{
+  color:#ffd0a6;
+  border-color:rgba(255,157,76,.62);
+  border-top-color:rgba(255,205,160,.78);
+  background:linear-gradient(155deg,rgba(255,166,91,.29),rgba(155,73,25,.2) 54%,rgba(42,24,15,.76));
+  box-shadow:inset 0 1px 0 rgba(255,231,210,.24),inset 0 -7px 15px rgba(0,0,0,.18),0 0 0 1px rgba(255,133,51,.12),0 6px 22px rgba(255,116,31,.19);
+  transform:translateY(-5px);
+}
+.bottom-nav .nav-item.active .v5-nav-icon{
+  color:#ffc18e;
+  transform:translateY(-1px) scale(1.08);
+  filter:drop-shadow(0 0 7px rgba(255,145,65,.48));
+}
+.bottom-nav .nav-item.active>span:last-child{color:#fff0e2}
+.bottom-nav .nav-item:active{transform:translateY(-1px) scale(.96)}
+.bottom-nav .nav-item:focus-visible{outline:2px solid #ffad68;outline-offset:3px}
+@media(max-width:360px){
+ .bottom-nav{gap:4px;padding-inline:6px}
+ .bottom-nav .nav-item{border-radius:14px}
+ .bottom-nav .nav-item>span:last-child{font-size:8px}
+}
