@@ -46,7 +46,12 @@ $("groupForm")?.addEventListener("submit",()=>setTimeout(()=>{let a=codes();if(a
 $("eventForm")?.addEventListener("submit",()=>setTimeout(()=>{renderEvents();renderHome()},100));
 const audioEnabled=()=>localStorage.getItem("pulse_ui_sound")!=="off";
 function tapSound(){if(!audioEnabled()||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=window.__pulseAudio||(window.__pulseAudio=new C());if(c.state==="suspended")c.resume();const o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.setValueAtTime(920,c.currentTime);o.frequency.exponentialRampToValueAtTime(620,c.currentTime+.035);g.gain.setValueAtTime(.0001,c.currentTime);g.gain.exponentialRampToValueAtTime(.035,c.currentTime+.006);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+.055);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.06)}catch{}}
-document.addEventListener("click",e=>{if(e.target.closest("button,[role=button],.language-option"))tapSound()},{capture:true});
+function navHaptic(){try{if("vibrate" in navigator)navigator.vibrate(12)}catch{}}
+document.addEventListener("click",e=>{
+ const navButton=e.target.closest(".bottom-nav .nav-item");
+ if(navButton){tapSound();navHaptic();return}
+ if(e.target.closest("button,[role=button],.language-option"))tapSound();
+},{capture:true});
 const settings=$("v5-theme");if(settings){const sound=document.createElement("button");sound.className="sound-setting";sound.id="v6-sound-toggle";sound.innerHTML='Interface sounds <span></span>';sound.onclick=()=>{localStorage.setItem("pulse_ui_sound",audioEnabled()?"off":"on");updateSoundLabel();tapSound()};settings.parentNode.insertBefore(sound,settings.nextSibling);function updateSoundLabel(){sound.querySelector("span").textContent=audioEnabled()?"On · tap to mute":"Off · tap to enable"}updateSoundLabel()}
 window.PULSE_TRANSLATE=(language)=>{
 const copy={
