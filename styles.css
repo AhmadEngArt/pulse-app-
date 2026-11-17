@@ -188,3 +188,14 @@ dialog{width:min(92vw,420px);border:1px solid #ff9a4238;border-radius:23px;backg
  .bottom-nav .nav-item{border-radius:14px}
  .bottom-nav .nav-item>span:last-child{font-size:8px}
 }
+
+/* PULSE v10 — quiet legal footer */
+.pulse-copyright{
+  margin:18px 2px 8px;
+  text-align:center;
+  color:#77716b;
+  font-size:9px;
+  letter-spacing:.25px;
+  line-height:1.6;
+}
+[dir="rtl"] .pulse-copyright{letter-spacing:0}
