@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17152d">
+  <meta name="description" content="PULSE — لحظه‌ها را با هم هماهنگ کن">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>PULSE</title>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">〰</span><span>PULSE</span></div>
+      <button class="avatar" id="profileBtn" aria-label="پروفایل">A</button>
+    </header>
+
+    <section class="welcome">
+      <p class="eyebrow">دوباره به هم وصل شو</p>
+      <h1>سلام! <span>✨</span></h1>
+      <p class="muted">برای آدم‌ها و لحظه‌هایی که برات مهم‌اند.</p>
+    </section>
+
+    <section class="hero-card">
+      <div class="hero-glow"></div>
+      <p class="eyebrow light">یک حس کوچک، یک اتفاق قشنگ</p>
+      <h2>یه پالس بفرست 💗</h2>
+      <p>بدون نیاز به شروع یک گفت‌وگوی طولانی، حست رو برسون.</p>
+      <div class="pulse-actions">
+        <button data-pulse="دلم برات تنگ شده" class="pulse-btn">🥺<span>دلم تنگ شده</span></button>
+        <button data-pulse="به یادت بودم" class="pulse-btn">💭<span>به یادت بودم</span></button>
+        <button data-pulse="دوستت دارم" class="pulse-btn">❤️<span>دوستت دارم</span></button>
+      </div>
+      <small id="pulseFeedback" class="feedback" aria-live="polite"></small>
+    </section>
+
+    <section class="section-head">
+      <div><p class="eyebrow">با هم برنامه بسازید</p><h2>گروه‌های من</h2></div>
+      <button class="text-button" id="addGroupBtn">＋ گروه جدید</button>
+    </section>
+    <section id="groups" class="group-grid"></section>
+
+    <section class="section-head event-head">
+      <div><p class="eyebrow">قرار بعدی</p><h2>رویدادها</h2></div>
+      <button class="text-button" id="addEventBtn">＋ رویداد</button>
+    </section>
+    <section id="events" class="events-list"></section>
+
+    <nav class="bottom-nav">
+      <button class="nav-item active">⌂<span>خانه</span></button>
+      <button class="nav-item" id="navGroups">◉<span>گروه‌ها</span></button>
+      <button class="nav-item" id="navEvents">▣<span>رویدادها</span></button>
+      <button class="nav-item" id="navProfile">☻<span>پروفایل</span></button>
+    </nav>
+  </main>
+
+  <dialog id="groupDialog">
+    <form method="dialog" id="groupForm">
+      <button class="close" value="cancel" aria-label="بستن">×</button>
+      <p class="eyebrow">دایره تازه</p><h2>ساخت گروه</h2>
+      <label>اسم گروه<input id="groupName" required maxlength="32" placeholder="مثلاً جمعه‌های ما"></label>
+      <label>نوع گروه<select id="groupCategory"><option>دوستان</option><option>خانواده</option><option>عاطفی</option><option>کاری</option><option>سفر و ماجراجویی</option><option>ورزش</option><option>بازی</option><option>هنر و سرگرمی</option><option>شخصی‌سازی‌شده</option></select></label>
+      <button class="primary" value="default">ساخت گروه</button>
+    </form>
+  </dialog>
+
+  <dialog id="eventDialog">
+    <form method="dialog" id="eventForm">
+      <button class="close" value="cancel" aria-label="بستن">×</button>
+      <p class="eyebrow">قرار تازه</p><h2>ساخت رویداد</h2>
+      <label>عنوان<input id="eventTitle" required maxlength="48" placeholder="مثلاً دورهمی آخر هفته"></label>
+      <label>گروه<select id="eventGroup" required></select></label>
+      <label>زمان<input id="eventTime" type="datetime-local" required></label>
+      <label>مکان<input id="eventPlace" maxlength="64" placeholder="مثلاً کافه همیشگی"></label>
+      <button class="primary" value="default">ثبت رویداد</button>
+    </form>
+  </dialog>
+
+  <dialog id="profileDialog">
+    <form method="dialog">
+      <button class="close" value="cancel" aria-label="بستن">×</button>
+      <p class="eyebrow">حساب من</p><h2>پروفایل PULSE</h2>
+      <p class="muted">این نسخه، پیش‌نمایش قابل آزمایش روی گوشی است. اطلاعات فعلاً فقط روی همین دستگاه ذخیره می‌شوند.</p>
+      <button class="primary" value="ok">متوجه شدم</button>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
