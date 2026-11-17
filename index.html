@@ -1,91 +1,81 @@
 <!doctype html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#17152d">
-  <meta name="description" content="PULSE — لحظه‌ها را با هم هماهنگ کن">
+  <meta name="theme-color" content="#111111">
+  <meta name="description" content="PULSE — Stay close to your people and moments.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
   <title>PULSE</title>
 </head>
 <body>
   <main class="app-shell">
-    <header class="topbar">
-      <div class="brand"><span class="brand-mark">〰</span><span>PULSE</span></div>
-      <button class="avatar" id="profileBtn" aria-label="پروفایل">A</button>
-    </header>
-
-    <section class="welcome">
-      <p class="eyebrow">دوباره به هم وصل شو</p>
-      <h1>سلام! <span>✨</span></h1>
-      <p class="muted">برای آدم‌ها و لحظه‌هایی که برات مهم‌اند.</p>
-    </section>
-
-    <section class="hero-card">
-      <div class="hero-glow"></div>
-      <p class="eyebrow light">یک حس کوچک، یک اتفاق قشنگ</p>
-      <h2>یه پالس بفرست 💗</h2>
-      <p>بدون نیاز به شروع یک گفت‌وگوی طولانی، حست رو برسون.</p>
-      <div class="pulse-actions">
-        <button data-pulse="دلم برات تنگ شده" class="pulse-btn">🥺<span>دلم تنگ شده</span></button>
-        <button data-pulse="به یادت بودم" class="pulse-btn">💭<span>به یادت بودم</span></button>
-        <button data-pulse="دوستت دارم" class="pulse-btn">❤️<span>دوستت دارم</span></button>
+    <section id="languageScreen" class="language-screen" aria-label="Choose your language">
+      <div class="language-brand"><span class="brand-mark">∿</span><span>PULSE</span></div>
+      <div class="language-intro">
+        <p class="eyebrow" data-i18n="welcomeBack">A LITTLE CLOSER, EVERY DAY</p>
+        <h1 data-i18n="chooseLanguage">Choose your language</h1>
+        <p class="muted" data-i18n="languageHint">You can change this anytime in Settings.</p>
       </div>
-      <small id="pulseFeedback" class="feedback" aria-live="polite"></small>
+      <div id="languageOptions" class="language-options">
+        <button class="language-option selected" data-lang="en"><span class="language-native">English</span><span class="language-sub">English</span><span class="language-check">✓</span></button>
+        <button class="language-option" data-lang="fa"><span class="language-native">فارسی</span><span class="language-sub">Persian</span><span class="language-check">✓</span></button>
+        <button class="language-option" data-lang="de"><span class="language-native">Deutsch</span><span class="language-sub">German</span><span class="language-check">✓</span></button>
+        <button class="language-option" data-lang="ru"><span class="language-native">Русский</span><span class="language-sub">Russian</span><span class="language-check">✓</span></button>
+        <button class="language-option" data-lang="fr"><span class="language-native">Français</span><span class="language-sub">French</span><span class="language-check">✓</span></button>
+        <button class="language-option" data-lang="pt"><span class="language-native">Português</span><span class="language-sub">Portuguese</span><span class="language-check">✓</span></button>
+        <button class="language-option" data-lang="it"><span class="language-native">Italiano</span><span class="language-sub">Italian</span><span class="language-check">✓</span></button>
+        <button class="language-option" data-lang="ar"><span class="language-native">العربية</span><span class="language-sub">Arabic</span><span class="language-check">✓</span></button>
+      </div>
+      <button id="continueBtn" class="primary continue-button"><span data-i18n="continue">Continue</span><span aria-hidden="true">→</span></button>
+      <p class="language-footnote">PULSE <span>•</span> <span data-i18n="madeForMoments">Made for meaningful moments</span></p>
     </section>
 
-    <section class="section-head">
-      <div><p class="eyebrow">با هم برنامه بسازید</p><h2>گروه‌های من</h2></div>
-      <button class="text-button" id="addGroupBtn">＋ گروه جدید</button>
+    <section id="homeScreen" class="home-screen" hidden>
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark">∿</span><span>PULSE</span></div>
+        <button class="avatar" id="profileBtn" aria-label="Profile">A</button>
+      </header>
+      <section class="welcome">
+        <p class="eyebrow" data-i18n="welcomeBack">A LITTLE CLOSER, EVERY DAY</p>
+        <h1><span data-i18n="hello">Hello</span><span class="sparkle">✦</span></h1>
+        <p class="muted" data-i18n="welcomeLine">For the people and moments that matter.</p>
+      </section>
+      <section class="hero-card">
+        <div class="hero-glow"></div>
+        <p class="eyebrow light" data-i18n="smallFeeling">A SMALL FEELING. A BEAUTIFUL MOMENT.</p>
+        <h2 data-i18n="sendPulse">Send a little pulse</h2>
+        <p data-i18n="pulseDescription">No long conversation needed. Just let them feel you're there.</p>
+        <div class="pulse-actions">
+          <button data-pulse="missYou" class="pulse-btn"><span class="pulse-emoji">♡</span><span data-i18n="missYou">I miss you</span></button>
+          <button data-pulse="thinking" class="pulse-btn"><span class="pulse-emoji">✧</span><span data-i18n="thinking">Thinking of you</span></button>
+          <button data-pulse="love" class="pulse-btn"><span class="pulse-emoji">♥</span><span data-i18n="love">I love you</span></button>
+        </div>
+        <small id="pulseFeedback" class="feedback" aria-live="polite"></small>
+      </section>
+      <section class="section-head">
+        <div><p class="eyebrow" data-i18n="makePlans">MAKE PLANS TOGETHER</p><h2 data-i18n="myGroups">My groups</h2></div>
+        <button class="text-button" id="addGroupBtn" data-i18n="newGroup">＋ New group</button>
+      </section>
+      <section id="groups" class="group-grid"></section>
+      <section class="section-head event-head">
+        <div><p class="eyebrow" data-i18n="nextMoments">WHAT'S COMING UP</p><h2 data-i18n="events">Events</h2></div>
+        <button class="text-button" id="addEventBtn" data-i18n="newEvent">＋ New event</button>
+      </section>
+      <section id="events" class="events-list"></section>
+      <nav class="bottom-nav">
+        <button class="nav-item active" id="navHome">⌂<span data-i18n="home">Home</span></button>
+        <button class="nav-item" id="navGroups">◉<span data-i18n="groups">Groups</span></button>
+        <button class="nav-item" id="navEvents">▣<span data-i18n="events">Events</span></button>
+        <button class="nav-item" id="navProfile">☻<span data-i18n="profile">Profile</span></button>
+      </nav>
     </section>
-    <section id="groups" class="group-grid"></section>
-
-    <section class="section-head event-head">
-      <div><p class="eyebrow">قرار بعدی</p><h2>رویدادها</h2></div>
-      <button class="text-button" id="addEventBtn">＋ رویداد</button>
-    </section>
-    <section id="events" class="events-list"></section>
-
-    <nav class="bottom-nav">
-      <button class="nav-item active">⌂<span>خانه</span></button>
-      <button class="nav-item" id="navGroups">◉<span>گروه‌ها</span></button>
-      <button class="nav-item" id="navEvents">▣<span>رویدادها</span></button>
-      <button class="nav-item" id="navProfile">☻<span>پروفایل</span></button>
-    </nav>
   </main>
 
-  <dialog id="groupDialog">
-    <form method="dialog" id="groupForm">
-      <button class="close" value="cancel" aria-label="بستن">×</button>
-      <p class="eyebrow">دایره تازه</p><h2>ساخت گروه</h2>
-      <label>اسم گروه<input id="groupName" required maxlength="32" placeholder="مثلاً جمعه‌های ما"></label>
-      <label>نوع گروه<select id="groupCategory"><option>دوستان</option><option>خانواده</option><option>عاطفی</option><option>کاری</option><option>سفر و ماجراجویی</option><option>ورزش</option><option>بازی</option><option>هنر و سرگرمی</option><option>شخصی‌سازی‌شده</option></select></label>
-      <button class="primary" value="default">ساخت گروه</button>
-    </form>
-  </dialog>
-
-  <dialog id="eventDialog">
-    <form method="dialog" id="eventForm">
-      <button class="close" value="cancel" aria-label="بستن">×</button>
-      <p class="eyebrow">قرار تازه</p><h2>ساخت رویداد</h2>
-      <label>عنوان<input id="eventTitle" required maxlength="48" placeholder="مثلاً دورهمی آخر هفته"></label>
-      <label>گروه<select id="eventGroup" required></select></label>
-      <label>زمان<input id="eventTime" type="datetime-local" required></label>
-      <label>مکان<input id="eventPlace" maxlength="64" placeholder="مثلاً کافه همیشگی"></label>
-      <button class="primary" value="default">ثبت رویداد</button>
-    </form>
-  </dialog>
-
-  <dialog id="profileDialog">
-    <form method="dialog">
-      <button class="close" value="cancel" aria-label="بستن">×</button>
-      <p class="eyebrow">حساب من</p><h2>پروفایل PULSE</h2>
-      <p class="muted">این نسخه، پیش‌نمایش قابل آزمایش روی گوشی است. اطلاعات فعلاً فقط روی همین دستگاه ذخیره می‌شوند.</p>
-      <button class="primary" value="ok">متوجه شدم</button>
-    </form>
-  </dialog>
-
+  <dialog id="groupDialog"><form method="dialog" id="groupForm"><button class="close" value="cancel" aria-label="Close">×</button><p class="eyebrow" data-i18n="newCircle">A NEW CIRCLE</p><h2 data-i18n="createGroup">Create a group</h2><label><span data-i18n="groupName">Group name</span><input id="groupName" required maxlength="32" placeholder="e.g. Weekend crew"></label><label><span data-i18n="category">Category</span><select id="groupCategory"><option value="friends" data-i18n="friends">Friends</option><option value="family" data-i18n="family">Family</option><option value="partner" data-i18n="partner">Partner</option><option value="work" data-i18n="work">Work</option><option value="travel" data-i18n="travel">Travel & adventure</option><option value="sports" data-i18n="sports">Sports & fitness</option><option value="gaming" data-i18n="gaming">Gaming</option><option value="arts" data-i18n="arts">Art & creativity</option><option value="custom" data-i18n="custom">Custom</option></select></label><button class="primary" value="default" data-i18n="create">Create group</button></form></dialog>
+  <dialog id="eventDialog"><form method="dialog" id="eventForm"><button class="close" value="cancel" aria-label="Close">×</button><p class="eyebrow" data-i18n="newMoment">A NEW MOMENT</p><h2 data-i18n="createEvent">Create an event</h2><label><span data-i18n="eventTitle">Event title</span><input id="eventTitle" required maxlength="48" placeholder="e.g. Weekend dinner"></label><label><span data-i18n="group">Group</span><select id="eventGroup" required></select></label><label><span data-i18n="dateTime">Date & time</span><input id="eventTime" type="datetime-local" required></label><label><span data-i18n="place">Place</span><input id="eventPlace" maxlength="64" placeholder="e.g. Our favourite café"></label><button class="primary" value="default" data-i18n="saveEvent">Save event</button></form></dialog>
+  <dialog id="profileDialog"><form method="dialog"><button class="close" value="cancel" aria-label="Close">×</button><p class="eyebrow" data-i18n="yourSpace">YOUR SPACE</p><h2 data-i18n="profileSettings">Profile & settings</h2><p class="muted" data-i18n="previewNote">This is a preview. Your data is currently stored only on this device.</p><button id="changeLanguageBtn" class="secondary" type="button" data-i18n="changeLanguage">Change language</button><button class="primary" value="ok" data-i18n="done">Done</button></form></dialog>
   <script src="app.js"></script>
 </body>
 </html>
