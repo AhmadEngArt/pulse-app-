@@ -112,8 +112,21 @@ window.PULSE_TRANSLATE=(language)=>{
    for(const [from,to] of pairs)if(from&&out.includes(from))out=out.split(from).join(to);
    return out;
  };
+ const translateElement=el=>{
+   if(!el||el.nodeType!==Node.ELEMENT_NODE)return;
+   ["placeholder","aria-label","title"].forEach(attr=>{
+     const current=el.getAttribute(attr);
+     if(current!==null){
+       const key="__pulseAttr_"+attr;
+       if(el[key]===undefined)el[key]=current;
+       const next=translateValue(el[key]);
+       if(current!==next)el.setAttribute(attr,next);
+     }
+   });
+ };
  const walk=root=>{
    if(!root)return;
+   if(root.nodeType===Node.ELEMENT_NODE)translateElement(root);
    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
    const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
    nodes.forEach(node=>{
@@ -121,28 +134,27 @@ window.PULSE_TRANSLATE=(language)=>{
      const next=translateValue(node.__pulseOriginal);
      if(node.nodeValue!==next)node.nodeValue=next;
    });
-   root.querySelectorAll?.("input[placeholder],textarea[placeholder],[aria-label],[title]").forEach(el=>{
-     ["placeholder","aria-label","title"].forEach(attr=>{
-       const current=el.getAttribute(attr);
-       if(current!==null){
-         const key="__pulseAttr_"+attr;
-         if(el[key]===undefined)el[key]=current;
-         const next=translateValue(el[key]);
-         if(current!==next)el.setAttribute(attr,next);
-       }
-     });
-   });
+   root.querySelectorAll?.("*").forEach(translateElement);
  };
  walk(app);
  ["languageScreen","groupDialog","eventDialog","profileDialog","v5-join-dialog","v6-qr-dialog"].forEach(id=>walk(document.getElementById(id)));
  if(!window.__pulseLanguageObserver){
    window.__pulseLanguageObserver=new MutationObserver(records=>{
-     for(const rec of records)for(const node of rec.addedNodes)if(node.nodeType===Node.ELEMENT_NODE)walk(node);else if(node.nodeType===Node.TEXT_NODE){
-       if(node.__pulseOriginal===undefined)node.__pulseOriginal=node.nodeValue;
-       const next=translateValue(node.__pulseOriginal);if(node.nodeValue!==next)node.nodeValue=next;
+     for(const rec of records){
+       if(rec.type==="attributes"){walk(rec.target);continue}
+       for(const node of rec.addedNodes){
+         if(node.nodeType===Node.ELEMENT_NODE)walk(node);
+         else if(node.nodeType===Node.TEXT_NODE){
+           if(node.__pulseOriginal===undefined)node.__pulseOriginal=node.nodeValue;
+           const next=translateValue(node.__pulseOriginal);
+           if(node.nodeValue!==next)node.nodeValue=next;
+         }
+       }
      }
    });
-   window.__pulseLanguageObserver.observe(app,{childList:true,subtree:true});
+   // Observe the whole app, including dialogs and dynamically-created controls.
+   // This keeps newly rendered pages, labels, placeholders and accessibility text in sync.
+   window.__pulseLanguageObserver.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:["placeholder","aria-label","title"]});
  }
  // Translate generated page navigation and reflect writing direction in directional UI.
  nav.querySelectorAll(".nav-item").forEach((b,i)=>{
