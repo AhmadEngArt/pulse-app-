@@ -54,19 +54,52 @@ document.addEventListener("click",e=>{
 },{capture:true});
 const settings=$("v5-theme");if(settings){const sound=document.createElement("button");sound.className="sound-setting";sound.id="v6-sound-toggle";sound.innerHTML='Interface sounds <span></span>';sound.onclick=()=>{localStorage.setItem("pulse_ui_sound",audioEnabled()?"off":"on");updateSoundLabel();tapSound()};settings.parentNode.insertBefore(sound,settings.nextSibling);function updateSoundLabel(){sound.querySelector("span").textContent=audioEnabled()?"On · tap to mute":"Off · tap to enable"}updateSoundLabel()}
 window.PULSE_TRANSLATE=(language)=>{
-const copy={
-en:["Make moments matter","Groups","Explore","Events","Profile","＋ Create a group","↗ Join with code","＋ Create an event","Enter code →","Language","Appearance"],
-fa:["لحظه‌ها را معنادار کن","گروه‌ها","کشف گروه‌ها","رویدادها","پروفایل","＋ ساخت گروه","پیوستن با کد","＋ ساخت رویداد","وارد کردن کد ←","زبان","ظاهر برنامه"],
-de:["Momente bedeutsam machen","Gruppen","Entdecken","Termine","Profil","＋ Gruppe erstellen","Mit Code beitreten","＋ Termin erstellen","Code eingeben →","Sprache","Darstellung"],
-ru:["Создавайте важные моменты","Группы","Обзор","События","Профиль","＋ Создать группу","Войти по коду","＋ Создать событие","Ввести код →","Язык","Внешний вид"],
-fr:["Créer de beaux moments","Groupes","Explorer","Événements","Profil","＋ Créer un groupe","Rejoindre avec un code","＋ Créer un événement","Saisir le code →","Langue","Apparence"],
-pt:["Crie momentos especiais","Grupos","Explorar","Eventos","Perfil","＋ Criar grupo","Entrar com código","＋ Criar evento","Inserir código →","Idioma","Aparência"],
-it:["Dai valore ai momenti","Gruppi","Esplora","Eventi","Profilo","＋ Crea un gruppo","Unisciti con codice","＋ Crea un evento","Inserisci codice →","Lingua","Aspetto"],
-ar:["اجعل اللحظات ذات معنى","المجموعات","استكشف","الفعاليات","الملف الشخصي","＋ إنشاء مجموعة","الانضمام باستخدام رمز","＋ إنشاء فعالية","أدخل الرمز ←","اللغة","المظهر"]
+ const rtl=["fa","ar"].includes(language);
+ document.documentElement.lang=language;
+ document.documentElement.dir=rtl?"rtl":"ltr";
+ document.body.dir=rtl?"rtl":"ltr";
+ const dict=(typeof T!=="undefined"&&T[language])||T.en;
+ const base=(typeof T!=="undefined"&&T.en)||{};
+ const translateNode=node=>{
+   if(!node||node.nodeType!==Node.TEXT_NODE)return;
+   if(node.__pulseOriginal===undefined)node.__pulseOriginal=node.nodeValue;
+   const original=node.__pulseOriginal;
+   const trimmed=original.trim();
+   if(!trimmed)return;
+   const key=Object.keys(base).find(k=>base[k]===trimmed);
+   if(key&&dict[key]!==undefined)node.nodeValue=original.replace(trimmed,dict[key]);
+ };
+ const walk=root=>{
+   const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+   let n;while((n=walker.nextNode()))translateNode(n);
+   root.querySelectorAll?.("input[placeholder],textarea[placeholder],[aria-label],title").forEach(el=>{
+     for(const attr of ["placeholder","aria-label","title"]){
+       const val=el.getAttribute(attr);if(!val)continue;
+       const key=Object.keys(base).find(k=>base[k]===val);
+       if(key&&dict[key]!==undefined){
+         el.dataset["pulse"+attr.replace(/-([a-z])/g,(_,c)=>c.toUpperCase())]??=val;
+         el.setAttribute(attr,dict[key]);
+       }
+     }
+   });
+ };
+ walk(app);
+ const observerKey="__pulseLanguageObserver";
+ if(!window[observerKey]){
+   window[observerKey]=new MutationObserver(records=>{
+     for(const rec of records)for(const node of rec.addedNodes){
+       if(node.nodeType===Node.TEXT_NODE)translateNode(node);
+       else if(node.nodeType===Node.ELEMENT_NODE)walk(node);
+     }
+   });
+   window[observerKey].observe(app,{childList:true,subtree:true});
+ }
+ // Re-translate the language chooser and dialogs outside the main app too.
+ walk(document.getElementById("languageScreen"));
+ walk(document.getElementById("groupDialog"));
+ walk(document.getElementById("eventDialog"));
+ walk(document.getElementById("profileDialog"));
 };
-document.documentElement.lang=language;document.documentElement.dir=["fa","ar"].includes(language)?"rtl":"ltr";
-const t=copy[language]||copy.en;
-["#pulse-home-view .page-head h1","#pulse-groups-view h1","#pulse-explore-view h1","#pulse-events-view h1","#pulse-profile-view h1","#v5-create","#v5-join","#v5-event-create","#v5-explore-join","#v5-language","#v5-theme"].forEach((s,i)=>{const e=document.querySelector(s);if(e)e.textContent=t[i]});
-};
+
 window.PULSE_TRANSLATE?.(localStorage.getItem("pulse_language")||"en");renderHome();renderGroups();renderFeatured();renderEvents();activate("home");
 })();
